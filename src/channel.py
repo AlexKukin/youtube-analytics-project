@@ -23,9 +23,47 @@ class Channel:
         self.title = root_branch['snippet']['title']
         self.description = root_branch['snippet']['description']
 
-        self.subscriber_cnt = root_branch['statistics']['subscriberCount']
+        self.subscriber_cnt = int(root_branch['statistics']['subscriberCount'])
         self.video_cnt = int(root_branch['statistics']['videoCount'])
         self.view_cnt = int(root_branch['statistics']['viewCount'])
+
+    def __str__(self):
+        return f"{self.title} ({self.url})"
+
+    def __repr__(self):
+        return f"{__class__.__name__}(channel_id='{self.__channel_id}')"
+
+    def __add__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_cnt + other.subscriber_cnt
+
+    def __sub__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_cnt - other.subscriber_cnt
+
+    def __eq__ (self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_cnt == other.subscriber_cnt
+
+    def __ne__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_cnt != other.subscriber_cnt
+
+    def __gt__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_cnt > other.subscriber_cnt
+
+    def __ge__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_cnt >= other.subscriber_cnt
+
+    def __lt__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_cnt < other.subscriber_cnt
+
+    def __le__(self, other):
+        if isinstance(other, Channel):
+            return self.subscriber_cnt <= other.subscriber_cnt
 
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
@@ -45,3 +83,4 @@ class Channel:
     def channel_id(self):
         """Геттер атрибуты channel_id"""
         return self.__channel_id
+
