@@ -19,13 +19,13 @@ class Channel:
 
         self.channel = Channel.youtube.channels().list(id=channel_id, part='snippet,statistics').execute()
 
-        root_branch = self.channel['items'][0]
-        self.title = root_branch['snippet']['title']
-        self.description = root_branch['snippet']['description']
+        channel_info = self.channel['items'][0]
+        self.title = channel_info['snippet']['title']
+        self.description = channel_info['snippet']['description']
 
-        self.subscriber_cnt = int(root_branch['statistics']['subscriberCount'])
-        self.video_cnt = int(root_branch['statistics']['videoCount'])
-        self.view_cnt = int(root_branch['statistics']['viewCount'])
+        self.subscriber_cnt = int(channel_info['statistics']['subscriberCount'])
+        self.video_cnt = int(channel_info['statistics']['videoCount'])
+        self.view_cnt = int(channel_info['statistics']['viewCount'])
 
     def __str__(self):
         return f"{self.title} ({self.url})"
